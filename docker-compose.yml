@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: cleanroom
+      POSTGRES_PASSWORD: cleanroom
+      POSTGRES_DB: cleanroom
+    volumes:
+      # Named volume keeps plans, computations and adopted snapshots
+      # across container restarts / recreations.
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cleanroom -d cleanroom"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  api:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://cleanroom:cleanroom@db:5432/cleanroom
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+volumes:
+  pgdata:

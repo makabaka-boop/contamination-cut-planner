@@ -1,0 +1,23 @@
+# Local Python / test artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.venv/
+venv/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+.ruff_cache/
+
+# Local environment overrides
+.env
+*.local
+
+# OS / editor noise
+.DS_Store
+.idea/
+.vscode/

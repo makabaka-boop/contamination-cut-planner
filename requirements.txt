@@ -1,0 +1,4 @@
+fastapi==0.141.1
+uvicorn[standard]==0.37.0
+psycopg[binary]==3.2.9
+psycopg-pool==3.2.7
